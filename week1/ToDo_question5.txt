@@ -1,1 +1,1 @@
-answer
+Branches are used for working on an existing script (a new branch), while making sure an older version is kept(the master branch). This prevents an older working script to be replaced by a new not working script.
