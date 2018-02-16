@@ -5,3 +5,5 @@ is inside the file, as well as the other files which were meant for the http req
 Image of the temperature line instead of github-pages version
 
 ![alt text](temp_image.png "")
+
+Source: http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi (01-01-1996 -> 01-01-1997, De Bilt, Average Temperature in degrees celsius)
