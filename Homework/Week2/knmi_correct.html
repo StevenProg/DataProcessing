@@ -1,4 +1,4 @@
-<textarea id="rawdata">
+<textarea style="visibility: hidden"; id="rawdata">
 #date,gemtemp
 19960101,  -14
 19960102,  -21
@@ -377,6 +377,8 @@
         var range_min = 0
         var range_max = 375;
         var margin = 50;
+
+        // extracts the raw data and creates two arrays, containing the days and temperatures
         line_sep = document.getElementById("rawdata").innerHTML.split('\n');
         day_array = [];
         temp_array = [];
@@ -390,12 +392,14 @@
             temp_array.push(Number(line_sep[i].split(',')[1]));
         }
 
+        // function for transforming X coordinates to canvas coordinates
         function trans_x(x, xList) {
             return ((domain_max - (2 * margin)) / xList.length) * x + margin;
         }
+
+        // function for transforming Y coordinates to canvas coordinates
         var max_tem = Math.max(...temp_array.slice(1,-1));
         var min_tem = Math.min(...temp_array.slice(1,-1));
-
         function trans_y(y) {
             var min_tem_adjust = ((range_max - (2 * margin)) /
                                 (max_tem - min_tem)) * min_tem * -1;
@@ -406,6 +410,7 @@
             return out
         }
 
+        // function for creating yNum amount of coordinates for y labels
         function trans_y_labels(y, yNum) {
             var min_tem_adjust = ((range_max - (2 * margin)) /
                                 (yNum)) * min_tem * -1;
@@ -421,7 +426,14 @@
             if (canvas.getContext) {
                 var ctx = canvas.getContext('2d');
 
-                // axes
+                // creates X and Y axis
+                ctx.beginPath();
+                ctx.moveTo(margin, margin);
+                ctx.lineTo(margin, range_max - margin);
+                ctx.lineTo(domain_max - margin, range_max - margin);
+                ctx.stroke();
+
+                // creates X axis labels
                 var xLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                 for (i = 0; i<xLabels.length; i++) {
                     var curLabel = trans_x(i, xLabels)	
@@ -431,13 +443,8 @@
                     ctx.fillText(xLabels[i], curLabel, range_max - margin + 25);
                     ctx.stroke();
                 }
-                ctx.beginPath();
-                ctx.moveTo(margin, margin);
-                ctx.lineTo(margin, range_max - margin);
-                ctx.lineTo(domain_max - margin, range_max - margin);
-                ctx.stroke();
 
-
+                // creates Y axis Labels
                 var yNum = 10;
                 for (var j = 1; j < yNum + 1; j++) {
                     var curLabel = ((range_max - margin * 2) / yNum) * j * -1 + (range_max - margin)
@@ -449,6 +456,7 @@
                     ctx.stroke();
                 }
 
+                // draws line
                 ctx.beginPath();
                 ctx.moveTo(trans_x(i, day_array), trans_y(temp_array[i]));
 
