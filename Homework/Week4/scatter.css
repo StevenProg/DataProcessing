@@ -1,0 +1,73 @@
+/*
+Steven Schoenmaker 10777679
+Source
+- https://bl.ocks.org/mbostock/3887118
+*/
+
+/* font for axes and ticks */
+body {
+    text-align: center;
+    color: black;
+  }
+  
+  /* intro and data source styling */
+  .intro,
+  .source {
+    font: 15px;
+    line-height: 1.5;
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  
+  /* instruction text */
+  .intro {
+    color: black;
+  }
+    
+  /* color axes */
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: blue;
+    shape-rendering: crispEdges;
+  }
+  /* center chart */
+  svg {
+    margin: auto;
+    display: block;
+  }
+
+  
+  /* dot color */
+  .dot {
+    stroke: white;
+  }
+  
+  /* tooltips*/
+  .d3-tip {
+    line-height: 1.5;
+    padding: 10px;
+    background: lightblue;
+    color: black;
+    border-radius: 2px;
+  }
+  
+   /* small point for tooltip */
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    line-height: 1;
+    width: 100%;
+    color: lightblue;
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+  
+   /* fix so that point stays centered on tooltips */
+   .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
