@@ -110,7 +110,7 @@ window.onload = function(){
         .attr("dx", ".71em")
         .attr("font-size", "20px")
         .style("text-anchor", "begin")
-        .text("Life expentancy and log GDP related to region and population size per country (years)");  
+        .text("Life expentancy and log GDP related to region and population size per country");  
 
     // create dots
     svg.selectAll(".dot")
