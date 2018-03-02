@@ -99,7 +99,7 @@ window.onload = function(){
         .attr("y", -80)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("GDP per Capita");
+        .text("GDP per Capita ($)");
     
     // create graph title
     svg.append("g")
