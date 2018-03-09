@@ -1,0 +1,28 @@
+/*
+Steven Schoenmaker 10777679
+*/
+
+body {
+    font: 15px sans-serif;
+    text-align: center;
+    color: black;
+    
+  }
+
+.axis path,
+.axis line {
+fill: none;
+stroke: #000;
+shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke-width: 1;
+}
+.x.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  }
+
