@@ -72,19 +72,13 @@ function updateGraph(data, station) {
 
 	var datasets = data[station];
 
-	// prevent double date and int formatting
+	// prevent double date and data formatting
 	if (previousViews.includes(station) == false) {
 			changeValues(datasets);
 		previousViews.push(station);
 	};
 
-	// scale the y axis again for new dataset
-	yAxis.domain([
-		d3.min(datasets['Minimum'], function(d) { return d.Temperature; }),
-		d3.max(datasets['Maximum'], function(d) { return d.Temperature; })
-	]).nice();
-
-    // select the section we want to apply our changes to
+    // select the part we want to apply our changes to
     for (var set in datasets) {
 		svg.selectAll('.line.' + set)
 			.attr('d', line(datasets[set]));
@@ -94,7 +88,7 @@ function updateGraph(data, station) {
 };
 
 
-// builds the first multichart
+// builds the initial multichart
 
 function drawInitialLines(data) {
 
@@ -150,7 +144,19 @@ function drawInitialLines(data) {
         .text("Temperature in degrees C");
 
 	// draw the graph lines
-    makeLines(datasets);
+	var i = 0;
+	for (var set in datasets) {
+		g.append('path')
+			.datum(datasets[set])
+			.attr('class', 'line ' + set)
+			.attr('fill', 'none')
+			.attr('stroke', colour[i])
+			.attr('stroke-linejoin', 'round')
+			.attr('stroke-linecap', 'round')
+			.attr('stroke-width', 1.5)
+			.attr('d', line);
+		i++;
+	};
     
     var legend = svg.selectAll(".legend")
 		.data(sets)
@@ -307,26 +313,6 @@ function makeMenu(data) {
 		updateGraph(data, selectStation);
 	};
 };
-
-
-
-function makeLines(d) {
-
-	var i = 0;
-	for (var set in d) {
-		g.append('path')
-			.datum(d[set])
-			.attr('class', 'line ' + set)
-			.attr('fill', 'none')
-			.attr('stroke', colour[i])
-			.attr('stroke-linejoin', 'round')
-			.attr('stroke-linecap', 'round')
-			.attr('stroke-width', 1.5)
-			.attr('d', line);
-		i++;
-	};
-};
-
 
 function makeTitle(s) {
 	
