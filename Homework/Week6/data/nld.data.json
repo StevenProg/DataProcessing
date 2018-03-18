@@ -1,0 +1,40 @@
+{
+    "1996": {
+      "Groningen": {
+        "inhabitants": 558113 
+      }, 
+      "Gelderland": {
+        "inhabitants": 1876299 
+      }, 
+      "Flevoland": {
+        "inhabitants": 272843
+      }, 
+      "Noord-Holland": {
+        "inhabitants": 2468432
+      }, 
+      "Friesland": {
+        "inhabitants": 612028
+      }, 
+      "Zuid-Holland": {
+        "inhabitants": 3332860
+      }, 
+      "Drenthe": {
+        "inhabitants": 457316
+      }, 
+      "Overijssel": {
+        "inhabitants": 1053966
+      }, 
+      "Noord-Brabant": {
+        "inhabitants": 2290424
+      }, 
+      "Limburg": {
+        "inhabitants": 1133669
+      }, 
+      "Utrecht": {
+        "inhabitants": 1070585
+      }, 
+      "Zeeland": {
+        "inhabitants": 367354
+      }
+    }
+  }

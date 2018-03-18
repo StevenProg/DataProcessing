@@ -1,0 +1,40 @@
+<!--
+Steven Schoenmaker 10777679
+-->
+
+<!doctype html>
+<html>
+  	<head>
+          
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+        <script src="http://d3js.org/queue.v1.min.js"></script>
+        <script src="https://d3js.org/topojson.v1.min.js"></script>
+        <script src="netherlands_map.js"></script>
+        <script src="temperature_lines.js"></script>
+        <script src="main.js"></script>
+        <link rel="stylesheet" href="map.css">
+        <link rel="stylesheet" href="line.css">
+
+    </head>
+
+  	<body>
+
+        <div id="mapcontainer"> 
+            <svg class="map", width = "500", height = "500"></svg>
+        </div>
+
+        <div id="linescontainer"> 
+            <svg class="lines", width = "1000", height = "700"></svg>
+        </div>
+                
+        <article>
+            <p> Steven Schoenmaker (10777679)</p>
+        </article>
+
+        <div class="source">
+            <a href="http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi">Data source: KNMI</a>
+        </div>
+
+    </body>        
+</html>
