@@ -48,25 +48,30 @@ function linesGraph() {
             throw error;
         }
 
-    makeMenu(data);
+    // makeMenu(data);
     drawInitialLines(data);
 })}
 
 
 // updates the graph after new dataset has been chosen
 
-function updateGraph(data, station) {
-
+function updateGraph(station) {
+	d3.json("data/temp.data.json", function(error, data) {
+        if (error) {
+            alert("Could not load data!");
+            throw error;
+        }
 	var datasets = data[station];
 
 	var lines = d3.select(".lines")
 		
-	// prevent double date and data formatting
-	if (previousViews.includes(station) == false) {
-			changeValues(datasets);
-		previousViews.push(station);
-	};
-
+	// // prevent double date and data formatting
+	// if (previousViews.includes(station) == false) {
+	// 		changeValues(datasets);
+	// 	previousViews = [];
+	// 	previousViews.push(station);
+	// };
+	changeValues(datasets);
     // select the part we want to apply our changes to
     for (var set in datasets) {
 		lines.selectAll('.line.' + set)
@@ -74,7 +79,7 @@ function updateGraph(data, station) {
 	};
 	// update title for new station
 	makeTitle(station)
-};
+	})};
 
 
 // builds the initial multichart
@@ -83,8 +88,7 @@ function drawInitialLines(data) {
 
 	// draw first graph with first station in data
 	var firstStation = Object.keys(data)[0],
-        datasets = data[firstStation];
-        makeTitle(firstStation);
+		datasets = data[firstStation];
 
 	// get sets for the legend
 	var sets = [];
@@ -95,7 +99,7 @@ function drawInitialLines(data) {
 	changeValues(datasets);
 
 	// push viewed station to list
-	previousViews.push(firstStation);
+	// previousViews.push(firstStation);
 
 	// scale all datasets to fit in graph area
 	xAxis.domain(d3.extent(datasets['Minimum'], function(d) { 
@@ -103,8 +107,8 @@ function drawInitialLines(data) {
 	})).nice();
 
 	yAxis.domain([
-		d3.min(datasets['Minimum'], function(d) { return d.Temperature; }),
-		d3.max(datasets['Maximum'], function(d) { return d.Temperature; })
+		d3.min(datasets['Minimum'], function(data) { return data.Temperature; }),
+		d3.max(datasets['Maximum'], function(data) { return data.Temperature; })
 	]).nice();
 
 	var lines = d3.select(".lines")
@@ -152,7 +156,8 @@ function drawInitialLines(data) {
 			.attr('d', line);
 		i++;
 	};
-    
+	makeTitle(firstStation);
+
     var legend = lines.selectAll(".legend")
 		.data(sets)
 		.enter().append("g")
@@ -282,49 +287,50 @@ function changeValues(d) {
 };
 
 
-// makes the dropdown menu
-function makeMenu(data) {
-	var stations = [];
-    for (var station in data) {
-        stations.push(station);
-    };
+// // makes the dropdown menu
+// function makeMenu(data) {
+// 	var stations = [];
+//     for (var station in data) {
+//         stations.push(station);
+//     };
 
-	// make menu
-	var select = d3.select('body')
-		.insert('select',':first-child')
-			.attr('class','select')
-			.on('change', onchange)
+// 	// make menu
+// 	var select = d3.select('body')
+// 		.insert('select',':first-child')
+// 			.attr('class','select')
+// 			.on('change', onchange)
 
-	// make options from data
-	var options = select
-		.selectAll('option')
-		.data(stations).enter()
-		.append('option')
-			.text(function (d) { return d; });
+// 	// make options from data
+// 	var options = select
+// 		.selectAll('option')
+// 		.data(stations).enter()
+// 		.append('option')
+// 			.text(function (d) { return d; });
 
-	// when an option is clicked
-	function onchange() {
-		var selectStation = d3.select('select').property('value');
-		updateGraph(data, selectStation);
-	};
-};
+// 	// when an option is clicked
+// 	function onchange() {
+// 		var selectStation = d3.select('select').property('value');
+// 		updateGraph(selectStation);
+// 	};
+// };
 
 function makeTitle(s) {
 	
 	// remove previous title
 	d3.selectAll('.title').remove();
 
-	// append to child g of svg element
-	var titleEnter = d3.select('lines'),
-		centerWidth = width / 2,
-		centerHeight = - margin / 2;
+	// // append to child g of svg element
+	// var titleEnter = d3.select('lines'),
+	// 	centerWidth = width / 2,
+	// 	centerHeight = - margin / 2;
 
-	titleEnter.append('text')
-			.attr('class', 'title')
-            .text('Average, maximum and minumum temperature measured in ' + s + ' in 1996')
-			.attr('text-anchor', 'middle')
-			.attr('x', centerWidth)
-			.attr('y', centerHeight)
-			.attr("font-size", "20px")
+	d3.select('.lines').select('g')
+		.append('text')
+		.attr('class', 'title')
+		.text('Average, maximum and minumum temperature measured in ' + s + ' in 1996')
+		.attr('text-anchor', 'middle')
+		.attr('x', width / 2)
+		.attr('y', (margin / 2) - 20)
+		.attr("font-size", "20px")
 };
 

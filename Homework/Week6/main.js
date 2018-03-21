@@ -12,7 +12,6 @@ var marginMap = {top: 20, right: 20, bottom: 40, left: 20},
     heightMap = 800 - marginMap.top - marginMap.bottom;
 
 var margin = 50;
-
 var map; 
 var width = 1000 - margin * 2;
 var height = 600 - margin * 2;
@@ -37,9 +36,15 @@ function mainExecute(error, dataMap, dataLines) {
         throw error;
     }
 
-    // per provincie een andere set met lijnen
-    mapGraph();
-    linesGraph();
+
+    mapGraph(dataMap);
+    linesGraph(dataLines);
 };
 
-
+// defer input?
+// scroll ding als het niet op 1 page past
+// bootstrap
+// verhaaltje
+// kleuren per land
+// goeie implementatie grafiek bolletjes
+// design keuzes

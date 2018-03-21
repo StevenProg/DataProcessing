@@ -9,37 +9,40 @@ Sources
 */
 var nld_topo;
 var currentProvince;
+var previousProvince = [];
 var projection = d3.geo.mercator()
     .scale(1)
     .translate([0, 0]);
-
 var path = d3.geo.path()
     .projection(projection);
-
+var clicked = 0;
 // create d3 tooltip to show on mouseover 
-var mapTip = d3.tip(name)
+var mapTip = d3.tip()
     .attr("class", "tip")
     .attr("id", "mapTip")
     .offset([-10, 0])
-    .html("<span style='color:midnightblue'>" + "</span>") // + name nog
-
+    .html(function(currentProvince) {
+        return "<span style='color:midnightblue'>" + currentProvince + "</span>"}); // + name nog
 
 
 // draws map of the netherlands including legend and year number 
 
-function mapGraph() {
+function mapGraph(dataMap) {
 
     d3.json("data/nld.topo.json", function(error, data) {
         if (error) {
             alert("Could not load data!");
             throw error;
         }
-
     var map = d3.select(".map")
         .append("g")
         .attr("width", 1000)
         .attr("height", heightMap);
 
+    // enable scatterplot dots to be colored
+    var color = d3.scale.category10();
+    console.log(dataMap)
+    console.log(dataMap[1996]["Zeeland"]["inhabitants"])
     var l = topojson.feature(data, data.objects.subunits).features[3],
         b = path.bounds(l),
         s = .2 / Math.max((b[1][0] - b[0][0]) / widthMap, (b[1][1] - b[0][1]) / heightMap),
@@ -55,28 +58,54 @@ function mapGraph() {
         .attr("d", path)
         .style("stroke", "black")
         .style("fill", "green")
-        .attr("stroke-width", "0.8px")
+        .attr("stroke-width", "1px")
         // create mouse events 
         .call(mapTip)
         .on("mouseover", drawTooltip)
-        .on("mouseout", removeTooltip);
-        // .on("click", onClick);
-        
+        .on("mouseout", removeTooltip)
+        .on("click", onClick);
         function drawTooltip() {
             var currentProvince = d3.select(this).attr("class");
-            mapTip.show(currentProvince)
+            mapTip.show(currentProvince);
             d3.select(this)
                 .style("fill", "crimson")
-        }
+        };
         function removeTooltip() {
             mapTip.hide()
             d3.select(this)
-            .style("fill", "green");
+                .style("fill", "green");
         }
 
         function onClick() {
-            // d3.select(this).attr("class"); // invulling om te switchen naar ander station
-            // updateGraph();
+            var currentProvince = d3.select(this).attr("class");
+            if (clicked == 0) {
+                map.selectAll("path").style("fill", "green").style("stroke", "none");
+                d3.select(this)
+                    .style("stroke", "yellow")
+                    .style("stroke-width", "5px")
+                    .style("fill", "crimson")
+                updateGraph(currentProvince);
+                clicked = 1;
+            }
+
+            else if (currentProvince == previousProvince) {
+                map.selectAll("path")
+                .style("stroke", "black")
+                .style("fill", "green")
+                .style("stroke-width", "1px")
+                clicked = 0;
+            }
+
+            else {
+                map.selectAll("path").style("fill", "green").style("stroke", "none");
+                d3.select(this)
+                    .style("stroke", "yellow")
+                    .style("stroke-width", "5px")
+                    .style("fill", "crimson")
+                updateGraph(currentProvince);
+                clicked = 1;
+            }
+            previousProvince = currentProvince;
         }
     });
 
