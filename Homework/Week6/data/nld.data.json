@@ -1,40 +1,64 @@
 {
     "1996": {
       "Groningen": {
-        "inhabitants": 558113 
+        "inhabitants": 558113,
+        "hoursOfSun": 1415
+        
       }, 
       "Gelderland": {
-        "inhabitants": 1876299 
+        "inhabitants": 1876299,
+        "hoursOfSun": 1374
+
       }, 
       "Flevoland": {
-        "inhabitants": 272843
+        "inhabitants": 272843,
+        "hoursOfSun": 1390
+
       }, 
       "Noord-Holland": {
-        "inhabitants": 2468432
+        "inhabitants": 2468432,
+        "hoursOfSun": 1581
+
       }, 
       "Friesland": {
-        "inhabitants": 612028
+        "inhabitants": 612028,
+        "hoursOfSun": 1475
+
       }, 
       "Zuid-Holland": {
-        "inhabitants": 3332860
+        "inhabitants": 3332860,
+        "hoursOfSun": 1562
+
       }, 
       "Drenthe": {
-        "inhabitants": 457316
+        "inhabitants": 457316,
+        "hoursOfSun": 1392
+
       }, 
       "Overijssel": {
-        "inhabitants": 1053966
+        "inhabitants": 1053966,
+        "hoursOfSun": 1377
+
       }, 
       "Noord-Brabant": {
-        "inhabitants": 2290424
+        "inhabitants": 2290424,
+        "hoursOfSun": 1390
+
       }, 
       "Limburg": {
-        "inhabitants": 1133669
+        "inhabitants": 1133669,
+        "hoursOfSun": 1411
+
       }, 
       "Utrecht": {
-        "inhabitants": 1070585
+        "inhabitants": 1070585,
+        "hoursOfSun": 1477
+
       }, 
       "Zeeland": {
-        "inhabitants": 367354
+        "inhabitants": 367354,
+        "hoursOfSun": 1536
+
       }
     }
   }

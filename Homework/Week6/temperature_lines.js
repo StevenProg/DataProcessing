@@ -39,47 +39,33 @@ var line = d3.svg.line().interpolate("basis")
     .y(function(d) {
     return yAxis(d.Temperature);
 	});
-	
     
-function linesGraph() {    
-    d3.json("data/temp.data.json", function(error, data) {
-        if (error) {
-            alert("Could not load data!");
-            throw error;
-        }
-
+function linesGraph(data) {    
     // makeMenu(data);
-    drawInitialLines(data);
-})}
+	drawInitialLines(data);
+}
 
 
 // updates the graph after new dataset has been chosen
 
-function updateGraph(station) {
-	d3.json("data/temp.data.json", function(error, data) {
-        if (error) {
-            alert("Could not load data!");
-            throw error;
-        }
+function updateGraph(data, station, newProvince) {
 	var datasets = data[station];
-
 	var lines = d3.select(".lines")
 		
-	// // prevent double date and data formatting
-	// if (previousViews.includes(station) == false) {
-	// 		changeValues(datasets);
-	// 	previousViews = [];
-	// 	previousViews.push(station);
-	// };
-	changeValues(datasets);
-    // select the part we want to apply our changes to
-    for (var set in datasets) {
+	// prevent double date and data formatting
+	if (newProvince == 1) { 
+		changeValues(datasets);
+	}
+
+	transi
+	// select the part we want to apply our changes to
+	for (var set in datasets) {
 		lines.selectAll('.line.' + set)
 			.attr('d', line(datasets[set]));
 	};
 	// update title for new station
 	makeTitle(station)
-	})};
+	};
 
 
 // builds the initial multichart
@@ -327,7 +313,7 @@ function makeTitle(s) {
 	d3.select('.lines').select('g')
 		.append('text')
 		.attr('class', 'title')
-		.text('Average, maximum and minumum temperature measured in ' + s + ' in 1996')
+		.text('Average, maximum and minimum temperature measured in ' + s + ' in 1996')
 		.attr('text-anchor', 'middle')
 		.attr('x', width / 2)
 		.attr('y', (margin / 2) - 20)

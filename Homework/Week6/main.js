@@ -25,26 +25,26 @@ var data = {};
 window.onload = function() {
     queue()
         .defer(d3.json, 'data/nld.data.json')
+        .defer(d3.json, "data/nld.topo.json")
         .defer(d3.json, 'data/temp.data.json')
         .await(mainExecute);   
 };
 
 
-function mainExecute(error, dataMap, dataLines) {
+function mainExecute(error, dataMap, dataTopo, dataLines) {
     if (error) {
         alert("Could not load data!");
         throw error;
     }
 
 
-    mapGraph(dataMap);
+    mapGraph(dataMap, dataTopo, dataLines);
     linesGraph(dataLines);
 };
 
-// defer input?
 // scroll ding als het niet op 1 page past
-// bootstrap
 // verhaaltje
-// kleuren per land
 // goeie implementatie grafiek bolletjes
 // design keuzes
+// bootstrap functie
+
