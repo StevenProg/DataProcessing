@@ -57,7 +57,6 @@ function updateGraph(data, station, newProvince) {
 		changeValues(datasets);
 	}
 
-	transi
 	// select the part we want to apply our changes to
 	for (var set in datasets) {
 		lines.selectAll('.line.' + set)
