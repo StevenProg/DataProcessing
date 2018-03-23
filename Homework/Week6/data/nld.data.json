@@ -1,64 +1,79 @@
 {
     "1996": {
       "Groningen": {
-        "inhabitants": 558113,
         "hoursOfSun": 1415
-        
       }, 
       "Gelderland": {
-        "inhabitants": 1876299,
         "hoursOfSun": 1374
-
       }, 
       "Flevoland": {
-        "inhabitants": 272843,
         "hoursOfSun": 1390
-
       }, 
       "Noord-Holland": {
-        "inhabitants": 2468432,
         "hoursOfSun": 1581
-
       }, 
       "Friesland": {
-        "inhabitants": 612028,
         "hoursOfSun": 1475
-
       }, 
       "Zuid-Holland": {
-        "inhabitants": 3332860,
         "hoursOfSun": 1562
-
       }, 
       "Drenthe": {
-        "inhabitants": 457316,
         "hoursOfSun": 1392
-
       }, 
       "Overijssel": {
-        "inhabitants": 1053966,
         "hoursOfSun": 1377
-
       }, 
       "Noord-Brabant": {
-        "inhabitants": 2290424,
         "hoursOfSun": 1390
-
       }, 
       "Limburg": {
-        "inhabitants": 1133669,
         "hoursOfSun": 1411
-
       }, 
       "Utrecht": {
-        "inhabitants": 1070585,
         "hoursOfSun": 1477
-
       }, 
       "Zeeland": {
-        "inhabitants": 367354,
         "hoursOfSun": 1536
+      }
+    },
 
+    "2016" :{
+      "Groningen": {
+        "hoursOfSun": 1550
+      }, 
+      "Gelderland": {
+        "hoursOfSun": 1522
+      }, 
+      "Flevoland": {
+        "hoursOfSun": 1678
+      }, 
+      "Noord-Holland": {
+        "hoursOfSun": 1751
+      }, 
+      "Friesland": {
+        "hoursOfSun": 1655
+      }, 
+      "Zuid-Holland": {
+        "hoursOfSun": 1624
+      }, 
+      "Drenthe": {
+        "hoursOfSun": 1547
+      }, 
+      "Overijssel": {
+        "hoursOfSun": 1606
+      }, 
+      "Noord-Brabant": {
+        "hoursOfSun": 1604
+      }, 
+      "Limburg": {
+        "hoursOfSun": 1561
+      }, 
+      "Utrecht": {
+        "hoursOfSun": 1602
+      }, 
+      "Zeeland": {
+        "hoursOfSun": 1733
       }
     }
   }

@@ -7,7 +7,6 @@ Sources
 - http://bl.ocks.org/jhubley/17aa30fd98eb0cc7072f
 */
 
-// set globals
 var parseDate = d3.time.format("%Y%m%d").parse;
 var bisectDate = d3.bisector(function(d) { return d.Date; }).left;
 var colour = ['#FF8C00', '#32CD32', '#6495ED'];
@@ -15,6 +14,7 @@ var margin = 50;
 var width = 1000 - margin * 2;
 var height = 600 - margin * 2;
 var g;
+
 var xAxis = d3.time.scale()
     .range([0, width]);
 
@@ -32,6 +32,7 @@ var yAxisOri = d3.svg.axis()
   .scale(yAxis)
   .orient("left");
 
+// creates line element
 var line = d3.svg.line().interpolate("basis")
     .x(function(d) {
     return xAxis(d.Date);
@@ -47,23 +48,20 @@ function linesGraph(data) {
 
 
 // updates the graph after new dataset has been chosen
-
-function updateGraph(data, station, newProvince) {
-	var datasets = data[station];
+function updateGraph(data, province, newProvince) {
+	var datasets = data[province];
 	var lines = d3.select(".lines")
-		
 	// prevent double date and data formatting
 	if (newProvince == 1) { 
 		changeValues(datasets);
 	}
-
 	// select the part we want to apply our changes to
 	for (var set in datasets) {
 		lines.selectAll('.line.' + set)
 			.attr('d', line(datasets[set]));
 	};
-	// update title for new station
-	makeTitle(station)
+	// update title for new province
+	makeTitle(province, currentYear)
 	};
 
 
@@ -71,9 +69,9 @@ function updateGraph(data, station, newProvince) {
 
 function drawInitialLines(data) {
 
-	// draw first graph with first station in data
-	var firstStation = Object.keys(data)[0],
-		datasets = data[firstStation];
+	// draw first graph with first province in data
+	var firstProvince = Object.keys(data)[0],
+		datasets = data[firstProvince];
 
 	// get sets for the legend
 	var sets = [];
@@ -83,14 +81,12 @@ function drawInitialLines(data) {
 	// change data to correct type
 	changeValues(datasets);
 
-	// push viewed station to list
-	// previousViews.push(firstStation);
-
 	// scale all datasets to fit in graph area
 	xAxis.domain(d3.extent(datasets['Minimum'], function(d) { 
 		return d.Date; 
 	})).nice();
 
+	// sets the range for the highest and lowest temperature
 	yAxis.domain([
 		d3.min(datasets['Minimum'], function(data) { return data.Temperature; }),
 		d3.max(datasets['Maximum'], function(data) { return data.Temperature; })
@@ -141,7 +137,7 @@ function drawInitialLines(data) {
 			.attr('d', line);
 		i++;
 	};
-	makeTitle(firstStation);
+	makeTitle(firstProvince, currentYear);
 
     var legend = lines.selectAll(".legend")
 		.data(sets)
@@ -178,11 +174,12 @@ function drawInitialLines(data) {
 	var lines = document.getElementsByClassName('line');
 
 	var mousePerLine = mouseG.selectAll('.mouse-per-line')
-		.data(function(d, i) { return colour[i];})
+		.data(function(d, i) { return colour;})
 		.enter()
 		.append("g")
 		.attr("class", "mouse-per-line");
 
+	// sets the circle for each line
 	mousePerLine.append("circle")
 		.attr("r", 6)
 		.style("stroke", function(d, i) {
@@ -233,27 +230,29 @@ function drawInitialLines(data) {
 
 		d3.selectAll(".mouse-per-line")
             .attr("transform", function(d, i) {
-			var xDate = xAxis.invert(mouse[0]),
-				bisect = d3.bisector(function(d) { return d.Date; }).right;
-				idx = bisect(i, xDate);
-			
-			var beginning = 0,
-				end = lines[i].getTotalLength(),
-				target = null;
+			var xDate = xAxis.invert(mouse[0])
+			var bisect = d3.bisector(function(d) { return d.Date; }).right;
+			var idx = bisect(i, xDate);
+			var beginning = 0;
+			var end = lines[i].getTotalLength();
+			var target = null;
+			var pos = null;
 
+			// I do understand how the loop works now (after a verrryy long time), yet I still did not manage to rewrite it
+			// or to change the 'true' condition into the break conditions. Very very frustrated because of this right now.
 			while (true){
-			target = Math.floor((beginning + end) / 2);
-			pos = lines[i].getPointAtLength(target);
-			if ((target === end || target === beginning) && pos.x !== mouse[0]) {
-				break;
-			}
-			if (pos.x > mouse[0])      end = target;
-			else if (pos.x < mouse[0]) beginning = target;
-			else break; //position found
-			}
-			
+				target = Math.floor((beginning + end) / 2);
+				pos = lines[i].getPointAtLength(target);
+				if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+					break;
+				}
+				if (pos.x > mouse[0])      end = target;
+				else if (pos.x < mouse[0]) beginning = target;
+				else break; //position found
+				}
+
 			d3.select(this).select('text')
-			.text(yAxis.invert(pos.y).toFixed(2));
+				.text(yAxis.invert(pos.y).toFixed(2));
 			
 			return "translate(" + mouse[0] + "," + pos.y +")";
 		});
@@ -271,48 +270,15 @@ function changeValues(d) {
 	};
 };
 
-
-// // makes the dropdown menu
-// function makeMenu(data) {
-// 	var stations = [];
-//     for (var station in data) {
-//         stations.push(station);
-//     };
-
-// 	// make menu
-// 	var select = d3.select('body')
-// 		.insert('select',':first-child')
-// 			.attr('class','select')
-// 			.on('change', onchange)
-
-// 	// make options from data
-// 	var options = select
-// 		.selectAll('option')
-// 		.data(stations).enter()
-// 		.append('option')
-// 			.text(function (d) { return d; });
-
-// 	// when an option is clicked
-// 	function onchange() {
-// 		var selectStation = d3.select('select').property('value');
-// 		updateGraph(selectStation);
-// 	};
-// };
-
-function makeTitle(s) {
+function makeTitle(s, y) {
 	
 	// remove previous title
 	d3.selectAll('.title').remove();
 
-	// // append to child g of svg element
-	// var titleEnter = d3.select('lines'),
-	// 	centerWidth = width / 2,
-	// 	centerHeight = - margin / 2;
-
 	d3.select('.lines').select('g')
 		.append('text')
 		.attr('class', 'title')
-		.text('Average, maximum and minimum temperature measured in ' + s + ' in 1996')
+		.text('Average, maximum and minimum temperature measured in ' + s + ' in ' + y)
 		.attr('text-anchor', 'middle')
 		.attr('x', width / 2)
 		.attr('y', (margin / 2) - 20)

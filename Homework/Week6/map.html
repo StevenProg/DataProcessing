@@ -1,50 +1,7 @@
 <!--
 Steven Schoenmaker 10777679
+Source : https://startbootstrap.com/template-overviews/grayscale/
 -->
-
-<!-- <!doctype html>
-<html>
-  	<head>
-          
-        <script src="https://d3js.org/d3.v3.min.js"></script>
-        <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-        <script src="http://d3js.org/queue.v1.min.js"></script>
-        <script src="https://d3js.org/topojson.v1.min.js"></script>
-        <script src="netherlands_map.js"></script>
-        <script src="temperature_lines.js"></script>
-        <script src="main.js"></script>
-        <link rel="stylesheet" href="map.css">
-        <link rel="stylesheet" href="line.css">
-
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>   
-    </head>
-
-  	<body>
-
-        <div id="mapcontainer"> 
-            <svg class="map", width = "1000", height = "700"></svg>
-        </div>
-
-        <div id="linescontainer"> 
-            <svg class="lines", width = "1000", height = "700"></svg>
-        </div>
-                
-        <article>
-            <p> Steven Schoenmaker (10777679)</p>
-        </article>
-
-        <div class="source">
-            <a href="http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi">Data source: KNMI</a>
-        </div>
-
-    </body>        
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,9 +75,13 @@ Steven Schoenmaker 10777679
       <div class="container text-center">
         <div class="row">
           <div class="col-lg-10 mx-auto">
-            <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
-            <p class="lead mb-5">This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at
-              <a href="https://unsplash.com/">Unsplash</a>!</p>
+            <h2>Story Telling</h2>
+            <p class="lead mb-5">The following visualization will show weather-related information about the provinces of the Netherlands.
+                In the left figure (the map) one can click on a province and the corresponding data will be shown in the right figure.
+                The total amount of hours of sun for a year is visualized in the left figure while the maximum, average and minimum
+                temperature per day is shown in the right figure. Different years can be selected using the dropdown button. 
+                Only hours of sun can be visualized for different years, the temperature lines will keep displaying the values from 1996.
+            </p>
             <a class="btn btn-dark btn-xl js-scroll-trigger" href="#portfolio">To the visualization!</a>
           </div>
         </div>
@@ -133,23 +94,25 @@ Steven Schoenmaker 10777679
         <div class="content-section-heading text-center">
           <h3 class="text-secondary mb-0">Linked views visualization</h3>
           <h2 class="mb-5">Sunny days and temperatues per province of the Netherlands</h2>
-
-        <div id="mapcontainer"> 
-            <svg class="map", width = "1000", height = "700"></svg>
-        </div>
-
-        <div id="linescontainer"> 
-            <svg class="lines", width = "1000", height = "600"></svg>
-        </div>
-
-        <div class="source">
-            <a href="http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi">Data source: KNMI</a>
+          <p class="buttonText">Click here to change the year of the visualization</p>
+          <select onchange="changeYear(this)">
+            <option value="1996">1996</option>
+            <option value="2016">2016</option>
+          </select>
+          <div id="mapcontainer"> 
+            <svg class="map" width ="1000" height ="700"></svg>
+          </div>
+          <div id="linescontainer"> 
+              <svg class="lines" width ="1000" height ="600"></svg>
+          </div>
+          <div class="source">
+              <a href="http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi">Data source: KNMI</a>
+          </div>
         </div>
       </div>
     </section>
 
-
-    <!-- Footer -->
+  <!-- Footer -->
     <footer class="footer text-center">
       <div class="container">
         <p class="text-muted small mb-0">Steven Schoenmaker (10777679) Dataprocessing Linked Views</p>

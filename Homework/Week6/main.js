@@ -7,21 +7,23 @@ Sources
 - http://bl.ocks.org/jhubley/17aa30fd98eb0cc7072f
 */
 
-var marginMap = {top: 20, right: 20, bottom: 40, left: 20},
-    widthMap = 700 - marginMap.left - marginMap.right,
-    heightMap = 800 - marginMap.top - marginMap.bottom;
+var marginMap = {top: 20, right: 20, bottom: 40, left: 20};
+var widthMap = 700 - marginMap.left - marginMap.right;
+var heightMap = 800 - marginMap.top - marginMap.bottom;
 
 var margin = 50;
 var map; 
 var width = 1000 - margin * 2;
 var height = 600 - margin * 2;
-
 var previousViews = [];
 var g;
 var data = {};
+var currentYear = 1996;
+var dataMapGlob;
+var dataTopoGlob;
+var dataLinesGlob;
 
-
-
+// loads the 3 used json files
 window.onload = function() {
     queue()
         .defer(d3.json, 'data/nld.data.json')
@@ -30,21 +32,23 @@ window.onload = function() {
         .await(mainExecute);   
 };
 
-
 function mainExecute(error, dataMap, dataTopo, dataLines) {
     if (error) {
         alert("Could not load data!");
         throw error;
     }
-
+    // sets json input as variables
+    dataMapGlob = dataMap;
+    dataLinesGlob = dataLines;
+    dataTopoGlob = dataTopo;
 
     mapGraph(dataMap, dataTopo, dataLines);
-    linesGraph(dataLines);
+    linesGraph(dataLinesGlob[currentYear]);
 };
 
-// scroll ding als het niet op 1 page past
-// verhaaltje
-// goeie implementatie grafiek bolletjes
-// design keuzes
-// bootstrap functie
+function changeYear(yearObject) {
+    currentYear = yearObject.value
+    updateMap(dataMapGlob, currentYear);
+};
+
 
