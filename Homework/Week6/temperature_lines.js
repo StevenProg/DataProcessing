@@ -278,7 +278,7 @@ function makeTitle(s, y) {
 	d3.select('.lines').select('g')
 		.append('text')
 		.attr('class', 'title')
-		.text('Average, maximum and minimum temperature measured in ' + s + ' in ' + y)
+		.text('Average, maximum and minimum temperature measured in ' + s + ' in 1996')
 		.attr('text-anchor', 'middle')
 		.attr('x', width / 2)
 		.attr('y', (margin / 2) - 20)
